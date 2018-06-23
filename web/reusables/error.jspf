@@ -1,0 +1,10 @@
+<div class="row">
+  <div class="col-md-6 col-md-offset-3" style="background-color: #f00; margin-top: 0;">
+
+    <h1 class="text-center text-danger"
+        style="color: white; margin: 10px">
+      <strong>${error}</strong>
+    </h1>
+
+  </div>
+</div>

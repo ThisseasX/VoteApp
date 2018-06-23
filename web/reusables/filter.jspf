@@ -1,0 +1,9 @@
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="inner-addon left-addon">
+      <i class="glyphicon glyphicon-search"></i>
+      <input id="myInput" class="form-control" title="search" onkeyup="myFilter()"
+             placeholder="Filter by surname...">
+    </div>
+  </div>
+</div>
