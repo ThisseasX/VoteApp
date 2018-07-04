@@ -1,0 +1,11 @@
+<%--@elvariable id="error" type="java.lang.String"--%>
+<%--@elvariable id="errorPosition" type="java.lang.String"--%>
+<c:if test="${error ne null and error.length() gt 0}">
+  <div class="row">
+    <div class="${errorPosition}" style="background-color: #f00; margin-top: 0;">
+      <h3 class="text-center" style="color: white; margin: 10px">
+        <strong>${error}</strong>
+      </h3>
+    </div>
+  </div>
+</c:if>

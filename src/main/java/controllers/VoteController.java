@@ -1,20 +1,28 @@
 package controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import services.VoterService;
 
 @Controller
 public class VoteController {
 
-    @PostMapping("/vote")
-    public String processRequest(
-            @RequestParam("v_afm") String v_afm,
-            @RequestParam("c_afm") String c_afm,
-            @RequestParam("vote") String vote) {
+    private final VoterService voterService;
 
-        VoterService.vote(v_afm, c_afm, Integer.parseInt(vote));
-        return "/jsp/vote";
+    @Autowired
+    public VoteController(VoterService voterService) {
+        this.voterService = voterService;
+    }
+
+    @PostMapping("/vote/{voterId}/{candidateId}/{vote}")
+    public String processRequest(
+            @PathVariable int voterId,
+            @PathVariable int candidateId,
+            @PathVariable int vote) {
+
+        voterService.vote(voterId, candidateId, vote);
+        return "vote";
     }
 }

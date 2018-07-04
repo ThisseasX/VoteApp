@@ -19,50 +19,7 @@ $(function () {
         $("#error").empty();
         e.preventDefault();
     });
-
-    let password = document.getElementById("register-password");
-    let confirm_password = document.getElementById("confirm-password");
-
-    function validatePassword() {
-        if (password.value !== confirm_password.value) {
-            confirm_password.setCustomValidity("Passwords don't match");
-        } else {
-            confirm_password.setCustomValidity('');
-        }
-    }
-
-    password.onchange = validatePassword;
-    confirm_password.onkeyup = validatePassword;
-
-    $('input').keypress(function (e) {
-        if (e.which === 32)
-            return false;
-    });
 });
-
-function post(path, params, method) {
-    method = method || "post"; // Set method to post by default if not specified.
-
-    // The rest of this code assumes you are not using a library.
-    // It can be made less wordy if you use one.
-    let form = document.createElement("form");
-    form.setAttribute("method", method);
-    form.setAttribute("action", path);
-
-    for (let key in params) {
-        if (params.hasOwnProperty(key)) {
-            let hiddenField = document.createElement("input");
-            hiddenField.setAttribute("type", "hidden");
-            hiddenField.setAttribute("name", key);
-            hiddenField.setAttribute("value", params[key]);
-
-            form.appendChild(hiddenField);
-        }
-    }
-
-    document.body.appendChild(form);
-    form.submit();
-}
 
 function myFilter() {
     // Declare variables

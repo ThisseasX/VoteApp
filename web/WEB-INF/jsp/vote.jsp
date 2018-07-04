@@ -1,5 +1,4 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://example.com/functions" prefix="f" %>
 <%--
   Created by IntelliJ IDEA.
   User: thiss
@@ -12,34 +11,21 @@
 
 <head>
   <title>VoteApp - Vote</title>
-  <%@include file="/reusables/header.jspf" %>
+  <%@include file="../fragments/header.jspf" %>
 </head>
 
 <body>
 
-<c:catch>
-  <jsp:useBean id="voter" scope="session" type="models.Voter"/>
-</c:catch>
-
-<c:choose>
-  <c:when test="${voter eq null}">
-    <c:redirect url="/home.jsp"/>
-  </c:when>
-  <c:otherwise>
-    <c:set var="list" scope="page" value="${f:getAvailableCandidates(voter)}"/>
-  </c:otherwise>
-</c:choose>
-
-<%@include file="/reusables/navbar.jspf" %>
+<%@include file="../fragments/navbar.jspf" %>
 
 <div class="container-fluid bg">
 
-  <%@include file="/reusables/jumbotron.jspf" %>
+  <%@include file="../fragments/jumbotron.jspf" %>
 
   <c:choose>
-    <c:when test="${list.size() ne 0 and f:canVote(voter.afm)}">
+    <c:when test="${list ne null and list.size() gt 0}">
 
-      <%@include file="/reusables/filter.jspf" %>
+      <%@include file="../fragments/filter.jspf" %>
 
       <div class="row">
         <div class="col-md-6 col-md-offset-3">
@@ -57,23 +43,24 @@
 
             <tbody>
             <c:forEach var="c" items="${list}">
-              <tr>
+              <tr id="_${c.candidateId}">
                 <td class="one">
-                    ${c.afm}
+                    ${c.candidateId}
                 </td>
                 <td class="two">
-                    ${c.name}
+                    ${c.candidateName}
                 </td>
                 <td>
-                    ${c.surname}
+                    ${c.candidateSurname}
                 </td>
                 <td>
                   <p data-placement="top" data-toggle="tooltip" title="vote">
-                    <button onclick="post('/vote',{v_afm: ${voter.afm}, c_afm: ${c.afm}, vote: 1},'post')"
-                            class="btn btn-primary" data-title="yes">
+                    <button
+                        onclick="post(${sessionScope.voter.voterId},${c.candidateId},1)"
+                        class="btn btn-primary" data-title="yes">
                       <span class="glyphicon glyphicon-thumbs-up"></span>
                     </button>
-                    <button onclick="post('/vote',{v_afm: ${voter.afm}, c_afm: ${c.afm}, vote: -1},'post')"
+                    <button onclick="post(${sessionScope.voter.voterId},${c.candidateId},-1)"
                             class="btn btn-danger" data-title="no">
                       <span class="glyphicon glyphicon-thumbs-down"></span>
                     </button>
@@ -91,16 +78,26 @@
     </c:when>
     <c:otherwise>
 
-      <c:set var="error" scope="page" value="You've reached your voting limit!"/>
-
-      <%@include file="/reusables/error.jspf" %>
+      <%@include file="../fragments/error.jspf" %>
 
     </c:otherwise>
   </c:choose>
 
 </div>
 
-<%@include file="/reusables/footer.jspf" %>
+<%@include file="../fragments/footer.jspf" %>
+
+<script>
+
+    function post(voterId, candidateId, vote) {
+        $.post("${pageContext.request.contextPath}/vote"
+            + "/" + voterId
+            + "/" + candidateId
+            + "/" + vote);
+        location.reload();
+    }
+
+</script>
 
 </body>
 

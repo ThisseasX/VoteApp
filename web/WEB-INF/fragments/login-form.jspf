@@ -1,0 +1,25 @@
+<%--@elvariable id="voter" type="entities.Voter"--%>
+<f:form modelAttribute="voter" id="login-form" action="${pageContext.request.contextPath}/login" method="post"
+        style="display: block;">
+
+  <div class="form-group">
+    <f:input path="voterId" pattern="[0-9]{1,15}" required="required" type="number" name="login-voter-id"
+             id="login-voter-id" tabindex="1"
+             class="form-control" placeholder="ID"/>
+  </div>
+
+  <div class="form-group">
+    <f:input path="voterPassword" pattern=".{1,30}" required="required" type="password" name="login-password"
+             id="login-password"
+             tabindex="1"
+             class="form-control"
+             placeholder="Password"/>
+  </div>
+
+  <div class="form-group">
+    <input type="submit" name="login-submit" id="login-submit" tabindex="4"
+           class="form-control btn btn-login"
+           value="Log In">
+  </div>
+
+</f:form>
