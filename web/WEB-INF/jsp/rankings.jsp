@@ -44,23 +44,23 @@
 
             <tbody>
 
-            <c:forEach var="i" begin="0" end="${list.size() - 1}">
+            <c:forEach items="${list}" var="c" varStatus="s">
               <tr>
                 <td>
-                    ${i + 1}
+                    ${s.index + 1}
                 </td>
                 <td class="one">
-                    ${list[i].candidateId}
+                    ${c.candidateId}
                 </td>
                 <td class="two">
-                    ${list[i].candidateName}
+                    ${c.candidateName}
                 </td>
                 <td>
-                    ${list[i].candidateSurname}
+                    ${c.candidateSurname}
                 </td>
                 <td>
                   <p data-placement="top" data-toggle="tooltip" title="vote">
-                      ${list[i].totalVotes}
+                      ${c.totalVotes}
                   </p>
                 </td>
               </tr>
